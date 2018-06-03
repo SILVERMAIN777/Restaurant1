@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cater">
+          <Key>
+            <PropertyRef Name="CaterID" />
+          </Key>
+          <Property Name="CaterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProdID" Type="int" Nullable="false" />
+          <Property Name="CatID" Type="int" Nullable="false" />
+          <Property Name="CDate" Type="date" Nullable="false" />
+          <Property Name="WCat" Type="numeric" Precision="7" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Caterer">
+          <Key>
+            <PropertyRef Name="CatId" />
+          </Key>
+          <Property Name="CatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NCat" Type="nchar" MaxLength="30" />
+          <Property Name="City" Type="nchar" MaxLength="20" />
+          <Property Name="Country" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="FoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NFood" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="Margin" Type="numeric" Precision="6" Scale="2" />
+        </EntityType>
+        <EntityType Name="Ingred">
+          <Key>
+            <PropertyRef Name="IngredID" />
+          </Key>
+          <Property Name="IngredID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FoodID" Type="int" Nullable="false" />
+          <Property Name="ProdID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="WProd" Type="numeric" Precision="7" Scale="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Portion">
+          <Key>
+            <PropertyRef Name="PortionID" />
+          </Key>
+          <Property Name="PortionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesDate" Type="datetime" />
+          <Property Name="CountPortion" Type="numeric" Precision="5" Scale="2" />
+          <Property Name="FoodID" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProdId" />
+          </Key>
+          <Property Name="ProdId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NProd" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Kcal" Type="smallint" />
+          <Property Name="Expiration" Type="date" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="FoodId" />
+          </Key>
+          <Property Name="FoodId" Type="int" Nullable="false" />
+          <Property Name="Recipe" Type="text" />
+        </EntityType>
+        <EntityType Name="TypeFood">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NType" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cater_To_Caterer">
+          <End Role="Caterer" Type="Self.Caterer" Multiplicity="1" />
+          <End Role="Cater" Type="Self.Cater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caterer">
+              <PropertyRef Name="CatId" />
+            </Principal>
+            <Dependent Role="Cater">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cater_To_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cater" Type="Self.Cater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProdId" />
+            </Principal>
+            <Dependent Role="Cater">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Food_To_TypeFood">
+          <End Role="TypeFood" Type="Self.TypeFood" Multiplicity="1" />
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeFood">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingred_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Ingred" Type="Self.Ingred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Ingred">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingred_To_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Ingred" Type="Self.Ingred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProdId" />
+            </Principal>
+            <Dependent Role="Ingred">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recipe_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="FoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+          <End Role="Portion" Type="Self.Portion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Portion">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestaurantModelStoreContainer">
+          <EntitySet Name="Cater" EntityType="Self.Cater" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Caterer" EntityType="Self.Caterer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Food" EntityType="Self.Food" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingred" EntityType="Self.Ingred" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Portion" EntityType="Self.Portion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeFood" EntityType="Self.TypeFood" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cater_To_Caterer" Association="Self.FK_Cater_To_Caterer">
+            <End Role="Caterer" EntitySet="Caterer" />
+            <End Role="Cater" EntitySet="Cater" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cater_To_Product" Association="Self.FK_Cater_To_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cater" EntitySet="Cater" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Food_To_TypeFood" Association="Self.FK_Food_To_TypeFood">
+            <End Role="TypeFood" EntitySet="TypeFood" />
+            <End Role="Food" EntitySet="Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingred_To_Food" Association="Self.FK_Ingred_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Ingred" EntitySet="Ingred" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingred_To_Product" Association="Self.FK_Ingred_To_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Ingred" EntitySet="Ingred" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recipe_To_Food" Association="Self.FK_Recipe_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_To_Food" Association="Self.FK_Table_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Portion" EntitySet="Portion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cater">
+          <Key>
+            <PropertyRef Name="CaterID" />
+          </Key>
+          <Property Name="CaterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProdID" Type="Int32" Nullable="false" />
+          <Property Name="CatID" Type="Int32" Nullable="false" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="WCat" Type="Decimal" Precision="7" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Caterer" Relationship="Self.FK_Cater_To_Caterer" FromRole="Cater" ToRole="Caterer" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Cater_To_Product" FromRole="Cater" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Caterer">
+          <Key>
+            <PropertyRef Name="CatId" />
+          </Key>
+          <Property Name="CatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NCat" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Cater" Relationship="Self.FK_Cater_To_Caterer" FromRole="Caterer" ToRole="Cater" />
+        </EntityType>
+        <EntityType Name="Food">
+          <Key>
+            <PropertyRef Name="FoodID" />
+          </Key>
+          <Property Name="FoodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NFood" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="Margin" Type="Decimal" Precision="6" Scale="2" />
+          <NavigationProperty Name="TypeFood" Relationship="Self.FK_Food_To_TypeFood" FromRole="Food" ToRole="TypeFood" />
+          <NavigationProperty Name="Ingred" Relationship="Self.FK_Ingred_To_Food" FromRole="Food" ToRole="Ingred" />
+          <NavigationProperty Name="Recipe" Relationship="Self.FK_Recipe_To_Food" FromRole="Food" ToRole="Recipe" />
+          <NavigationProperty Name="Portion" Relationship="RestaurantModel.FK_Table_To_Food" FromRole="Food" ToRole="Portion" />
+        </EntityType>
+        <EntityType Name="Ingred">
+          <Key>
+            <PropertyRef Name="IngredID" />
+          </Key>
+          <Property Name="IngredID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FoodID" Type="Int32" Nullable="false" />
+          <Property Name="ProdID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="WProd" Type="Decimal" Precision="7" Scale="3" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Ingred_To_Food" FromRole="Ingred" ToRole="Food" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Ingred_To_Product" FromRole="Ingred" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProdId" />
+          </Key>
+          <Property Name="ProdId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NProd" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Kcal" Type="Int16" />
+          <Property Name="Expiration" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Cater" Relationship="Self.FK_Cater_To_Product" FromRole="Product" ToRole="Cater" />
+          <NavigationProperty Name="Ingred" Relationship="Self.FK_Ingred_To_Product" FromRole="Product" ToRole="Ingred" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="FoodId" />
+          </Key>
+          <Property Name="FoodId" Type="Int32" Nullable="false" />
+          <Property Name="Recipe1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Recipe_To_Food" FromRole="Recipe" ToRole="Food" />
+        </EntityType>
+        <EntityType Name="TypeFood">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NType" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Food_To_TypeFood" FromRole="TypeFood" ToRole="Food" />
+        </EntityType>
+        <Association Name="FK_Cater_To_Caterer">
+          <End Role="Caterer" Type="Self.Caterer" Multiplicity="1" />
+          <End Role="Cater" Type="Self.Cater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Caterer">
+              <PropertyRef Name="CatId" />
+            </Principal>
+            <Dependent Role="Cater">
+              <PropertyRef Name="CatID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cater_To_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Cater" Type="Self.Cater" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProdId" />
+            </Principal>
+            <Dependent Role="Cater">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Food_To_TypeFood">
+          <End Role="TypeFood" Type="Self.TypeFood" Multiplicity="1" />
+          <End Role="Food" Type="Self.Food" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeFood">
+              <PropertyRef Name="TypeId" />
+            </Principal>
+            <Dependent Role="Food">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingred_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Ingred" Type="Self.Ingred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Ingred">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Recipe_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="1" />
+          <End Role="Recipe" Type="Self.Recipe" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Recipe">
+              <PropertyRef Name="FoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ingred_To_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Ingred" Type="Self.Ingred" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProdId" />
+            </Principal>
+            <Dependent Role="Ingred">
+              <PropertyRef Name="ProdID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RestaurantEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cater" EntityType="Self.Cater" />
+          <EntitySet Name="Caterer" EntityType="Self.Caterer" />
+          <EntitySet Name="Food" EntityType="Self.Food" />
+          <EntitySet Name="Ingred" EntityType="Self.Ingred" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Recipe" EntityType="Self.Recipe" />
+          <EntitySet Name="TypeFood" EntityType="Self.TypeFood" />
+          <AssociationSet Name="FK_Cater_To_Caterer" Association="Self.FK_Cater_To_Caterer">
+            <End Role="Caterer" EntitySet="Caterer" />
+            <End Role="Cater" EntitySet="Cater" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cater_To_Product" Association="Self.FK_Cater_To_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Cater" EntitySet="Cater" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Food_To_TypeFood" Association="Self.FK_Food_To_TypeFood">
+            <End Role="TypeFood" EntitySet="TypeFood" />
+            <End Role="Food" EntitySet="Food" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingred_To_Food" Association="Self.FK_Ingred_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Ingred" EntitySet="Ingred" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Recipe_To_Food" Association="Self.FK_Recipe_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Recipe" EntitySet="Recipe" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ingred_To_Product" Association="Self.FK_Ingred_To_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Ingred" EntitySet="Ingred" />
+          </AssociationSet>
+          <EntitySet Name="Portion" EntityType="RestaurantModel.Portion" />
+          <AssociationSet Name="FK_Table_To_Food" Association="RestaurantModel.FK_Table_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Portion" EntitySet="Portion" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Portion">
+          <Key>
+            <PropertyRef Name="PortionID" />
+          </Key>
+          <Property Name="PortionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesDate" Type="DateTime" Precision="3" />
+          <Property Name="CountPortion" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="FoodID" Type="Int32" />
+          <NavigationProperty Name="Food" Relationship="RestaurantModel.FK_Table_To_Food" FromRole="Portion" ToRole="Food" />
+        </EntityType>
+        <Association Name="FK_Table_To_Food">
+          <End Type="RestaurantModel.Food" Role="Food" Multiplicity="0..1" />
+          <End Type="RestaurantModel.Portion" Role="Portion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Portion">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RestaurantModelStoreContainer" CdmEntityContainer="RestaurantEntities">
+          <EntitySetMapping Name="Cater">
+            <EntityTypeMapping TypeName="RestaurantModel.Cater">
+              <MappingFragment StoreEntitySet="Cater">
+                <ScalarProperty Name="CaterID" ColumnName="CaterID" />
+                <ScalarProperty Name="ProdID" ColumnName="ProdID" />
+                <ScalarProperty Name="CatID" ColumnName="CatID" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="WCat" ColumnName="WCat" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Caterer">
+            <EntityTypeMapping TypeName="RestaurantModel.Caterer">
+              <MappingFragment StoreEntitySet="Caterer">
+                <ScalarProperty Name="CatId" ColumnName="CatId" />
+                <ScalarProperty Name="NCat" ColumnName="NCat" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Food">
+            <EntityTypeMapping TypeName="RestaurantModel.Food">
+              <MappingFragment StoreEntitySet="Food">
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="NFood" ColumnName="NFood" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="Margin" ColumnName="Margin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingred">
+            <EntityTypeMapping TypeName="RestaurantModel.Ingred">
+              <MappingFragment StoreEntitySet="Ingred">
+                <ScalarProperty Name="IngredID" ColumnName="IngredID" />
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="ProdID" ColumnName="ProdID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WProd" ColumnName="WProd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="RestaurantModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProdId" ColumnName="ProdId" />
+                <ScalarProperty Name="NProd" ColumnName="NProd" />
+                <ScalarProperty Name="Kcal" ColumnName="Kcal" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipe">
+            <EntityTypeMapping TypeName="RestaurantModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipe">
+                <ScalarProperty Name="FoodId" ColumnName="FoodId" />
+                <ScalarProperty Name="Recipe1" ColumnName="Recipe" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeFood">
+            <EntityTypeMapping TypeName="RestaurantModel.TypeFood">
+              <MappingFragment StoreEntitySet="TypeFood">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="NType" ColumnName="NType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Portion">
+            <EntityTypeMapping TypeName="RestaurantModel.Portion">
+              <MappingFragment StoreEntitySet="Portion">
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+                <ScalarProperty Name="CountPortion" ColumnName="CountPortion" />
+                <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
+                <ScalarProperty Name="PortionID" ColumnName="PortionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
