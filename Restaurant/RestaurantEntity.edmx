@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="RestaurantModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cater">
           <Key>
             <PropertyRef Name="CaterID" />
@@ -198,7 +198,8 @@
             <End Role="Portion" EntitySet="Portion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="RestaurantModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -236,7 +237,7 @@
           <NavigationProperty Name="TypeFood" Relationship="Self.FK_Food_To_TypeFood" FromRole="Food" ToRole="TypeFood" />
           <NavigationProperty Name="Ingred" Relationship="Self.FK_Ingred_To_Food" FromRole="Food" ToRole="Ingred" />
           <NavigationProperty Name="Recipe" Relationship="Self.FK_Recipe_To_Food" FromRole="Food" ToRole="Recipe" />
-          <NavigationProperty Name="Portion" Relationship="RestaurantModel.FK_Table_To_Food" FromRole="Food" ToRole="Portion" />
+          <NavigationProperty Name="Portion" Relationship="Self.FK_Table_To_Food" FromRole="Food" ToRole="Portion" />
         </EntityType>
         <EntityType Name="Ingred">
           <Key>
@@ -249,6 +250,16 @@
           <Property Name="WProd" Type="Decimal" Precision="7" Scale="3" Nullable="false" />
           <NavigationProperty Name="Food" Relationship="Self.FK_Ingred_To_Food" FromRole="Ingred" ToRole="Food" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Ingred_To_Product" FromRole="Ingred" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Portion">
+          <Key>
+            <PropertyRef Name="PortionID" />
+          </Key>
+          <Property Name="PortionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesDate" Type="DateTime" Precision="3" />
+          <Property Name="CountPortion" Type="Decimal" Precision="5" Scale="2" />
+          <Property Name="FoodID" Type="Int32" />
+          <NavigationProperty Name="Food" Relationship="Self.FK_Table_To_Food" FromRole="Portion" ToRole="Food" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -337,6 +348,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Table_To_Food">
+          <End Role="Food" Type="Self.Food" Multiplicity="0..1" />
+          <End Role="Portion" Type="Self.Portion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Food">
+              <PropertyRef Name="FoodID" />
+            </Principal>
+            <Dependent Role="Portion">
+              <PropertyRef Name="FoodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Ingred_To_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="Ingred" Type="Self.Ingred" Multiplicity="*" />
@@ -349,11 +372,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RestaurantEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RestaurantDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cater" EntityType="Self.Cater" />
           <EntitySet Name="Caterer" EntityType="Self.Caterer" />
           <EntitySet Name="Food" EntityType="Self.Food" />
           <EntitySet Name="Ingred" EntityType="Self.Ingred" />
+          <EntitySet Name="Portion" EntityType="Self.Portion" />
           <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="Recipe" EntityType="Self.Recipe" />
           <EntitySet Name="TypeFood" EntityType="Self.TypeFood" />
@@ -377,44 +401,21 @@
             <End Role="Food" EntitySet="Food" />
             <End Role="Recipe" EntitySet="Recipe" />
           </AssociationSet>
+          <AssociationSet Name="FK_Table_To_Food" Association="Self.FK_Table_To_Food">
+            <End Role="Food" EntitySet="Food" />
+            <End Role="Portion" EntitySet="Portion" />
+          </AssociationSet>
           <AssociationSet Name="FK_Ingred_To_Product" Association="Self.FK_Ingred_To_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Ingred" EntitySet="Ingred" />
           </AssociationSet>
-          <EntitySet Name="Portion" EntityType="RestaurantModel.Portion" />
-          <AssociationSet Name="FK_Table_To_Food" Association="RestaurantModel.FK_Table_To_Food">
-            <End Role="Food" EntitySet="Food" />
-            <End Role="Portion" EntitySet="Portion" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Portion">
-          <Key>
-            <PropertyRef Name="PortionID" />
-          </Key>
-          <Property Name="PortionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SalesDate" Type="DateTime" Precision="3" />
-          <Property Name="CountPortion" Type="Decimal" Precision="5" Scale="2" />
-          <Property Name="FoodID" Type="Int32" />
-          <NavigationProperty Name="Food" Relationship="RestaurantModel.FK_Table_To_Food" FromRole="Portion" ToRole="Food" />
-        </EntityType>
-        <Association Name="FK_Table_To_Food">
-          <End Type="RestaurantModel.Food" Role="Food" Multiplicity="0..1" />
-          <End Type="RestaurantModel.Portion" Role="Portion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Food">
-              <PropertyRef Name="FoodID" />
-            </Principal>
-            <Dependent Role="Portion">
-              <PropertyRef Name="FoodID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RestaurantModelStoreContainer" CdmEntityContainer="RestaurantEntities">
+        <EntityContainerMapping StorageEntityContainer="RestaurantModelStoreContainer" CdmEntityContainer="RestaurantDB">
           <EntitySetMapping Name="Cater">
             <EntityTypeMapping TypeName="RestaurantModel.Cater">
               <MappingFragment StoreEntitySet="Cater">
@@ -458,6 +459,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Portion">
+            <EntityTypeMapping TypeName="RestaurantModel.Portion">
+              <MappingFragment StoreEntitySet="Portion">
+                <ScalarProperty Name="PortionID" ColumnName="PortionID" />
+                <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
+                <ScalarProperty Name="CountPortion" ColumnName="CountPortion" />
+                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Product">
             <EntityTypeMapping TypeName="RestaurantModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -481,16 +492,6 @@
               <MappingFragment StoreEntitySet="TypeFood">
                 <ScalarProperty Name="TypeId" ColumnName="TypeId" />
                 <ScalarProperty Name="NType" ColumnName="NType" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Portion">
-            <EntityTypeMapping TypeName="RestaurantModel.Portion">
-              <MappingFragment StoreEntitySet="Portion">
-                <ScalarProperty Name="FoodID" ColumnName="FoodID" />
-                <ScalarProperty Name="CountPortion" ColumnName="CountPortion" />
-                <ScalarProperty Name="SalesDate" ColumnName="SalesDate" />
-                <ScalarProperty Name="PortionID" ColumnName="PortionID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

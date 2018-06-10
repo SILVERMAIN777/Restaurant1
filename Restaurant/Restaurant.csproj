@@ -71,13 +71,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cater.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Caterer.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Food.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -88,13 +88,28 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Ingred.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RestaurantEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
     </Compile>
     <Compile Include="Portion.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,7 +120,7 @@
       <DependentUpon>QueryEdit.cs</DependentUpon>
     </Compile>
     <Compile Include="Recipe.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="RestaurantDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -117,23 +132,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RestaurantDataSet1.xsd</DependentUpon>
     </Compile>
-    <Compile Include="RestaurantEntity.Context.cs">
+    <Compile Include="RestaurantFood.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RestaurantEntity.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestaurantEntity.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
-    </Compile>
-    <Compile Include="RestaurantEntity.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
+      <DependentUpon>RestaurantFood.xsd</DependentUpon>
     </Compile>
     <Compile Include="TypeFood.cs">
-      <DependentUpon>RestaurantEntity.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -151,6 +156,13 @@
     <EmbeddedResource Include="QueryEdit.resx">
       <DependentUpon>QueryEdit.cs</DependentUpon>
     </EmbeddedResource>
+    <EntityDeploy Include="RestaurantEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RestaurantEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="RestaurantEntity.edmx.diagram">
+      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -172,10 +184,6 @@
     <None Include="RestaurantDataSet.xss">
       <DependentUpon>RestaurantDataSet.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="RestaurantEntity.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RestaurantEntity.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="RestaurantDataSet1.xsc">
       <DependentUpon>RestaurantDataSet1.xsd</DependentUpon>
     </None>
@@ -187,26 +195,36 @@
     <None Include="RestaurantDataSet1.xss">
       <DependentUpon>RestaurantDataSet1.xsd</DependentUpon>
     </None>
-    <None Include="RestaurantEntity.edmx.diagram">
-      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
+    <None Include="RestaurantFood.xsc">
+      <DependentUpon>RestaurantFood.xsd</DependentUpon>
+    </None>
+    <None Include="RestaurantFood.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>RestaurantFood.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="RestaurantFood.xss">
+      <DependentUpon>RestaurantFood.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Model1.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </Content>
     <Content Include="Restaurant.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="RestaurantEntity.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RestaurantEntity.Context.cs</LastGenOutput>
-      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
-    </Content>
-    <Content Include="RestaurantEntity.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>RestaurantEntity.edmx</DependentUpon>
-      <LastGenOutput>RestaurantEntity.cs</LastGenOutput>
     </Content>
     <Content Include="Restaurant_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

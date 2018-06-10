@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DacOrigin xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <PackageProperties>
+    <Version>3.1.0.0</Version>
+    <ContainsExportedData>false</ContainsExportedData>
+    <StreamVersions>
+      <Version StreamName="Data">2.0.0.0</Version>
+      <Version StreamName="DeploymentContributors">1.0.0.0</Version>
+    </StreamVersions>
+  </PackageProperties>
+  <Operation>
+    <Identity>c90f9976-43ff-4fa4-a5f2-6bfc367652cf</Identity>
+    <Start>2018-06-03T21:16:19.3892028+03:00</Start>
+    <End>0001-01-01T00:00:00.0000000</End>
+    <ProductName>Microsoft.SqlServer.Dac, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</ProductName>
+    <ProductVersion>14.0.4009.3</ProductVersion>
+    <ProductSchema>http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02</ProductSchema>
+  </Operation>
+  <Server>
+    <ServerVersion>Microsoft SQL Server 2016 (SP1) (KB3182545) - 13.0.4001.0 (X64) 
+	Oct 28 2016 18:17:30 
+	Copyright (c) Microsoft Corporation
+	Express Edition (64-bit) on Windows 7 Ultimate 6.1 &lt;X64&gt; (Build 7601: Service Pack 1)
+</ServerVersion>
+    <ObjectCounts>
+      <DatabaseOptions>1</DatabaseOptions>
+      <ForeignKeyConstraint>7</ForeignKeyConstraint>
+      <PrimaryKeyConstraint>8</PrimaryKeyConstraint>
+      <SimpleColumn>31</SimpleColumn>
+      <Table>8</Table>
+    </ObjectCounts>
+  </Server>
+  <Checksums>
+    <Checksum Uri="/model.xml">041B40C87716213EB9BE277921C94ACA4D6F45221D476620FA4F596C1EDD0D30</Checksum>
+  </Checksums>
+  <ModelSchemaVersion>2.5</ModelSchemaVersion>
+</DacOrigin>

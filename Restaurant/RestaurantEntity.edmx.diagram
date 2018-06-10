@@ -4,22 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="32e68b5004b34b7a945b3ea124e4bbb6" Name="Diagram1">
-        <EntityTypeShape EntityType="RestaurantModel.Cater" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.Caterer" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.Food" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.Ingred" Width="1.5" PointX="5.25" PointY="2.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.Product" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.Recipe" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestaurantModel.TypeFood" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+      <Diagram DiagramId="917db01da7814ed082e51adad8052125" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="RestaurantModel.Cater" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Caterer" Width="1.5" PointX="3" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Food" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Ingred" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Portion" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Product" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.Recipe" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestaurantModel.TypeFood" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
         <AssociationConnector Association="RestaurantModel.FK_Cater_To_Caterer" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantModel.FK_Cater_To_Product" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantModel.FK_Food_To_TypeFood" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantModel.FK_Ingred_To_Food" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantModel.FK_Recipe_To_Food" ManuallyRouted="false" />
+        <AssociationConnector Association="RestaurantModel.FK_Table_To_Food" ManuallyRouted="false" />
         <AssociationConnector Association="RestaurantModel.FK_Ingred_To_Product" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="RestaurantModel.Portion" Width="1.5" PointX="5.25" PointY="11.5" />
-        <AssociationConnector Association="RestaurantModel.FK_Table_To_Food" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
